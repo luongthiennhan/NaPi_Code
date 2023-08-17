@@ -74,23 +74,9 @@
         </div>
     <div class="col-2">
     <div class="card">
-        <div class="card-body">
-            <img src="../resources/{{ $product->image }}" id="brandLogo" class="img-fluid" alt="img">
-            <a class="card-link float-right text-danger" href="#">
-                <i class="fa fa-fw fa-lg fa-trash"></i>
-            </a>
-        </div>
+            <img src="../resources/{{ $product->image }}" alt="img">
     </div>
     </div>
-
-   
-        <!-- <div class="col-6">
-        <span class="text-gray-700">Images</span>
-        <input type="file" name="images[]" class="form-control @error('images') is-invalid @enderror" value="{{old('images[]')}}" required placeholder="Please choose the product's photo" multiple/>
-        @error('images')
-        <div class="text-error">{{ $message }}</div>
-        @enderror
-        </div> -->
     </div>
 
         <div class="form-group" >

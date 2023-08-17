@@ -105,43 +105,30 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => 'max:25 | min:2',
             'description' => 'max:250',
-            'image'  => 'mimes:jpeg,png,jpg,gif | max:1024',
-            'images'  => 'max:1024',
+            'image'  => 'mimes:jpeg,png,jpg,gif | max:2024',
+            'images'  => 'max:2024',
         ]);
         //save product
         $saverPoduct = Product::find($request->input('product_id'));
-        $saverPoduct->update($request->all());
-          
-        //    $avata = $request->file('image')->getClientOriginalName();
-        //    $request->file('image')->move('resources/img/',$avata);
+        $array = $request->all();
+        if ( isset($request->image) ) {
+            $request->file('image')->move('resources/img/',$request->file('image')->getClientOriginalName());
+        //save avata
+            $idImage = ImageProduct::select('id')->where('image', $saverPoduct->image)->get();
+               ImageProduct::find($idImage)->first()->update([
+                  'image' => 'img/'.$request->file('image')->getClientOriginalName(),
+                  'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                  'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
+              ]);
 
-            //   //save avata
-            //   ImageProduct::update([
-            //       'id',
-            //       'product_id' => $newProduct->id,
-            //       'image' => 'img/'.$avata,
-            //       'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
-            //       'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
-            //   ]);
-            //   //save photo product
-            //   foreach ($data['images'] as $image) {
-            //       $file_name = $image->getClientOriginalName();
-            //       if ($file_name == $avata) {
-            //           continue;
-            //       }
-            //       $image->move('resources/img/',$file_name);
-            //      ImageProduct::update([
-            //       'id',
-            //       'product_id' => $newProduct->id,
-            //       'image' => 'img/'.$file_name,
-            //       'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
-            //       'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
-            //      ]);
-            //   }
-  
+            $array['image'] = 'img/'.$request->file('image')->getClientOriginalName();
+        }
+        
+        $saverPoduct->update($array);
+
             //save category product
             $id = Product_Categories::select('id')->where('product_id', $request->input('product_id'))->get();
-            $categories =  Product_Categories::find($id)->first()->update([
+                Product_Categories::find($id)->first()->update([
                 'category_id' => $request->input('category'),
                 'product_id' => $request->input('product_id'),
                 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
