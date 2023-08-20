@@ -113,6 +113,13 @@ class ProductController extends Controller
         $array = $request->all();
         if ( isset($request->image) ) {
             $request->file('image')->move('resources/img/',$request->file('image')->getClientOriginalName());
+             //save avata
+             $idImage = ImageProduct::select('id')->where('image', $saverPoduct->image)->get();
+             ImageProduct::find($idImage)->first()->update([
+                'image' => 'img/'.$request->file('image')->getClientOriginalName(),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
+            ]);
             $array['image'] = 'img/'.$request->file('image')->getClientOriginalName();
         }
         
