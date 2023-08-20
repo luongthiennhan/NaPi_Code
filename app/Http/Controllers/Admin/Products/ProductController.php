@@ -113,14 +113,6 @@ class ProductController extends Controller
         $array = $request->all();
         if ( isset($request->image) ) {
             $request->file('image')->move('resources/img/',$request->file('image')->getClientOriginalName());
-        //save avata
-            $idImage = ImageProduct::select('id')->where('image', $saverPoduct->image)->get();
-               ImageProduct::find($idImage)->first()->update([
-                  'image' => 'img/'.$request->file('image')->getClientOriginalName(),
-                  'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
-                  'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
-              ]);
-
             $array['image'] = 'img/'.$request->file('image')->getClientOriginalName();
         }
         
@@ -140,5 +132,36 @@ class ProductController extends Controller
     public function destroy(Request $request, $id) {
         Product::where('id', $id)->delete();
         return redirect('/admin/product')->with('success', 'Delete product successfully!');
+    }
+
+    public function getProductImages($id) {
+        $images = ImageProduct::where('product_id',$id)->get();
+        $products = Product::where('id', $id)->get();
+        $idProduct = $id;
+        return view('admin.products.albumProduct', compact('images', 'idProduct', 'products'));
+    }
+
+    public function addImages(Request $request) {
+        $data = $request->validate([
+            'images'  => 'required',
+        ]);
+        $images = ImageProduct::select()->get();
+            foreach ($data['images'] as $img) {
+                $file_name = 'img/'.$img->getClientOriginalName();
+                $img->move('resources/img/',$file_name);
+               ImageProduct::create([
+                'id',
+                'product_id' => $request->input('id-product'),
+                'image' => $file_name,
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+                'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
+               ]);
+        }
+        return redirect('/admin/album/'.$request->input('id-product'))->with('success', 'Successfully Added New Photo');
+    }
+
+    public function remoteImage(Request $request, $id, $productId) {
+        ImageProduct::where('id', $id)->delete();
+        return redirect('/admin/album/'.$productId)->with('success', 'Delete Image successfully!');
     }
 }
