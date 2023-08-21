@@ -26,7 +26,7 @@ Route::get('/edit/{id}', [ProductController::class,'getProductEdit'])->name('edi
 
 Route::get('admin/album/{id}', [ProductController::class,'getProductImages'])->name('admin.album')->middleware('auth');
 Route::post('album/images/new',[ProductController::class, 'addImages'])->name('images.new')->middleware('auth');
-Route::get('/remoteImage/{id}/{productId}', [ProductController::class,'remoteImage'])->name('remoteImage')->middleware('auth');
+Route::get('/remoteImage/{id}/{productId}/{image}', [ProductController::class,'remoteImage'])->name('remoteImage')->middleware('auth');
 
 Route::post('/update/{id}', [ProductController::class,'updateProduct'])->name('product.update')->middleware('auth');
 Route::get('/remote/{id}', [ProductController::class,'destroy'])->name('remote')->middleware('auth');

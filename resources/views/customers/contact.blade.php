@@ -26,7 +26,7 @@
       
       <div class="layout-map" >
       <p class="name-map">Address: <lable class="address-store">10/2 Phạm Ngũ Lão, Phước Mỹ, Phan Rang - Tháp Chàm, Ninh Thuận</lable></p>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d244.29435527994846!2d108.9801798!3d11.5726576!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1691592039334!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d244.29435527994846!2d108.9801798!3d11.5726576!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1691592039334!5m2!1sen!2s" width="80%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       
   </div>

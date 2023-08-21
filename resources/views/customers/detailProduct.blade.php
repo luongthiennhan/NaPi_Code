@@ -34,9 +34,9 @@
       <div class="slide">
       @foreach($row->getImage as $i)
         @if($i->image==NULL)
-        <img class="mySlides" src="../resources/img/default.jpg">
+        <img class="mySlides" src="{{ asset('resources/img/default.jpg)}}">
         @else
-        <img class="mySlides" src="../resources/{{ $i->image }}" alt="{{$row->name}}" >
+        <img class="mySlides" src="{{ asset('resources/img/'.$i->image) }}" alt="{{$row->name}}" >
         @endif
         @endforeach
         
@@ -60,9 +60,9 @@
       <div class="view-overlay"> 
         <a class="product" href="{{route('detailProduct', $ar->id)}}" title="View {{$ar->name}}">
         @if($ar->image==NULL)
-        <img class="image" src="../resources/img/default.jpg">
+        <img class="image" src="{{ asset('resources/img/default.jpg)}}">
         @else
-        <img class="image" src="../resources/{{ $ar->image }}" alt="{{$ar->name}}" >
+        <img class="image" src="{{ asset('resources/img/'.$i->image) }}" alt="{{$ar->name}}" >
         @endif
         <div class="list-product">
         <label class="product-name">{{$ar->name}} - <label><label class="price_format" >{{number_format($ar->price)}} VNĐ</label>

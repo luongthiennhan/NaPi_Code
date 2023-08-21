@@ -47,7 +47,7 @@
       <td>{{ $row->name }}</td>
       <td>{{ $row->price }}</td>
       <td>{{ $row->quantity }}</td>
-      <td><img class="img" src="../resources/{{ $row->image }}"></td>
+      <td><img class="img" src="{{ asset('resources/img/'.$row->image) }}"></td>
       <td>{{ $row->description }}</td>
       <td>{{ $row->created_at }}</td>
       <td>{{ $row->updated_at }}</td>

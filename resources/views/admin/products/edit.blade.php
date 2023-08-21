@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="row">
-    <div class="col-3">
+    <div class="col-5">
     <span class="text-gray-700">Avatar</span>
         <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" value="{{old('image')}}" placeholder="Please choose a picture to represent the product"/>
         @error('image')
@@ -74,10 +74,10 @@
         </div>
     <div class="col-2">
     <div class="card">
-            <img src="../resources/{{ $product->image }}" alt="img">
+            <img src="{{ asset('resources/img/'.$product->image) }}" alt="img">
     </div>
     </div>
-    <div class="col-6">
+    <div class="col-5">
     <span class="text-gray-700">Album Images</span>
     <div class="album-images">
         <a href="{{ route('admin.album',$product->id) }}"> <svg xmlns="http://www.w3.org/2000/svg" width="40%" height="40%" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
+use File;
 
 class ProductController extends Controller
 {
@@ -49,7 +50,7 @@ class ProductController extends Controller
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'quantity' => $request->input('quantity'),
-                'image' => 'img/'.$avata,
+                'image' => $avata,
                 'description' =>  $request-> input('description'),
                 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
@@ -58,7 +59,7 @@ class ProductController extends Controller
             ImageProduct::create([
                 'id',
                 'product_id' => $newProduct->id,
-                'image' => 'img/'.$avata,
+                'image' => $avata,
                 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
             ]);
@@ -72,7 +73,7 @@ class ProductController extends Controller
                ImageProduct::create([
                 'id',
                 'product_id' => $newProduct->id,
-                'image' => 'img/'.$file_name,
+                'image' => $file_name,
                 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
                ]);
@@ -116,11 +117,15 @@ class ProductController extends Controller
              //save avata
              $idImage = ImageProduct::select('id')->where('image', $saverPoduct->image)->get();
              ImageProduct::find($idImage)->first()->update([
-                'image' => 'img/'.$request->file('image')->getClientOriginalName(),
+                'image' => $request->file('image')->getClientOriginalName(),
                 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
             ]);
-            $array['image'] = 'img/'.$request->file('image')->getClientOriginalName();
+            $image_path = resource_path('img/'.$saverPoduct->image);
+            if(File::exists($image_path)) {
+              File::delete($image_path);
+            }
+            $array['image'] = $request->file('image')->getClientOriginalName();
         }
         
         $saverPoduct->update($array);
@@ -137,6 +142,13 @@ class ProductController extends Controller
     }
 
     public function destroy(Request $request, $id) {
+        $data = ImageProduct::select('image')->where('product_id', $id)->get();
+        foreach ($data as $ar) {
+            $image_path = resource_path('img/'.$ar->image);
+            if(File::exists($image_path)) {
+            File::delete($image_path);
+            }
+        }
         Product::where('id', $id)->delete();
         return redirect('/admin/product')->with('success', 'Delete product successfully!');
     }
@@ -154,7 +166,7 @@ class ProductController extends Controller
         ]);
         $images = ImageProduct::select()->get();
             foreach ($data['images'] as $img) {
-                $file_name = 'img/'.$img->getClientOriginalName();
+                $file_name = $img->getClientOriginalName();
                 $img->move('resources/img/',$file_name);
                ImageProduct::create([
                 'id',
@@ -167,7 +179,11 @@ class ProductController extends Controller
         return redirect('/admin/album/'.$request->input('id-product'))->with('success', 'Successfully Added New Photo');
     }
 
-    public function remoteImage(Request $request, $id, $productId) {
+    public function remoteImage(Request $request, $id, $productId, $image) {
+        $image_path = resource_path('img/'.$image);
+        if(File::exists($image_path)) {
+          File::delete($image_path);
+        }
         ImageProduct::where('id', $id)->delete();
         return redirect('/admin/album/'.$productId)->with('success', 'Delete Image successfully!');
     }

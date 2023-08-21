@@ -54,11 +54,11 @@
     @if($row->image == $i -> image)
     <b>Avata</b>
     @else 
-    <a class="card-link float-left text-danger" href="{{ route('remoteImage',[$i->id, $i->product_id]) }}"><i class="fa fa-fw fa-lg fa-trash"></i></a>
+    <a class="card-link float-left text-danger" href="{{ route('remoteImage',[$i->id, $i->product_id, $i->image]) }}"><i class="fa fa-fw fa-lg fa-trash"></i></a>
     @endif
     @endforeach
     @endif
-    <img src="{{ asset('resources/'.$i->image) }}" id="brandLogo" class="img-fluid" alt="img">
+    <img src="{{ asset('resources/img/'.$i->image) }}" id="brandLogo" class="img-fluid" alt="img">
     </div>
     </div>
     </div>

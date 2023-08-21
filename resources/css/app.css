@@ -370,7 +370,7 @@
 /* CSS ADMIN PRODUCT */
 .img {
   width:50%;
-  height:50%;
+  height:auto;
   opacity: 1;
   visibility: visible;
 }
