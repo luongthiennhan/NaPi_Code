@@ -23,7 +23,7 @@
   <div class="view-overlay"> 
     <a class="product" href="{{route('detailProduct', $row->id)}}" title="View {{$row->name}}">
         @if($row->image==NULL)
-        <img class="image" src="{{ asset('resources/img/default.jpg)}}">
+        <img class="image" src="{{ asset('resources/img/default.jpg')}}">
         @else
         <img class="image" src="{{ asset('resources/img/'.$row->image) }}" alt="{{$row->name}}" >
         @endif
