@@ -15,6 +15,11 @@
 @section('editProduct')
 <body>
   <h3>Update Products</h3>
+  @if(session('success'))
+    <div class="alert alert-success">
+    {{ session('success') }}
+    </div> 
+@endif
     <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
     @csrf

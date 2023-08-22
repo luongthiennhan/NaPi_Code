@@ -107,25 +107,31 @@ class ProductController extends Controller
             'name' => 'max:25 | min:2',
             'description' => 'max:250',
             'image'  => 'mimes:jpeg,png,jpg,gif | max:2024',
-            'images'  => 'max:2024',
         ]);
         //save product
         $saverPoduct = Product::find($request->input('product_id'));
         $array = $request->all();
         if ( isset($request->image) ) {
-            $request->file('image')->move('resources/img/',$request->file('image')->getClientOriginalName());
              //save avata
-             $idImage = ImageProduct::select('id')->where('image', $saverPoduct->image)->get();
-             ImageProduct::find($idImage)->first()->update([
-                'image' => $request->file('image')->getClientOriginalName(),
-                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
-                'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
-            ]);
-            $image_path = resource_path('img/'.$saverPoduct->image);
-            if(File::exists($image_path)) {
-              File::delete($image_path);
-            }
+             $imagesProduct = ImageProduct::select('image')->where('product_id', $request->input('product_id'))->get();
+             $check = false;
+             foreach ($imagesProduct as $i ) {
+                 if ($i->image == $request->file('image')->getClientOriginalName())
+                 {
+                   $check = true;
+                 }
+             }
+             if ($check == false) {
+                ImageProduct::create([
+                    'id',
+                    'product_id' => $request->input('product_id'),
+                    'image' =>  $request->file('image')->getClientOriginalName(),
+                    'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
+                   ]);
+             }
+           
             $array['image'] = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move('resources/img/',$request->file('image')->getClientOriginalName());
         }
         
         $saverPoduct->update($array);
@@ -135,10 +141,9 @@ class ProductController extends Controller
                 Product_Categories::find($id)->first()->update([
                 'category_id' => $request->input('category'),
                 'product_id' => $request->input('product_id'),
-                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
             ]);
-              return redirect('/admin/product')->with('success', 'Product Update Successful!');
+              return redirect('/edit/'.$request->input('product_id'))->with('success', 'Product Update Successful!');
     }
 
     public function destroy(Request $request, $id) {
@@ -154,7 +159,7 @@ class ProductController extends Controller
     }
 
     public function getProductImages($id) {
-        $images = ImageProduct::where('product_id',$id)->get();
+        $images = ImageProduct::where('product_id',$id)->orderBy('id', 'desc')->get();
         $products = Product::where('id', $id)->get();
         $idProduct = $id;
         return view('admin.products.albumProduct', compact('images', 'idProduct', 'products'));
