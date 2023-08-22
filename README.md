@@ -8,7 +8,7 @@
 </p>
 <h1>Documentation Download and Run Code</h1>
 
-Step 1: run <b>cmd</b> command in Xampp\htdocs . directory<br>
+Step 1: run <b>cmd</b> command<br>
 Step 2: Download the code on git to your computer: <b>git clone https://github.com/luongthiennhan/NaPi_Code.git </b> <br>
 Step 3: Open the downloaded NaPi_Code folder<br>
 Step 4 : Run command: <b>composer install</b><br>
