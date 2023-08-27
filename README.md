@@ -21,7 +21,7 @@ Step 6: Update the .env file as follows<br>
 </ul>
 Step 7: Run Command: <b>php artisan migrate</b> to create database <br>
 Step 8: Run Command: <b>php artisan db:seed </b><br>
-Step 9: Run path <a href = "http://localhost/NaPi_Code/admin/product">NaPi</a> ( http://localhost/NaPi_Code/admin/product ) 
+Step 9: Run path <b>NaPi_Code/admin/product</b> 
 <ul>
     <li>Account: test@example.com</li>
     <li>Password: 123456789</li>
