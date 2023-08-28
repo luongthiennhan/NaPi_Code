@@ -78,16 +78,20 @@
                 <div class="layout-menu">
                 <nav class="nav flex-column">
                 <a class="nav-link active" href="{{ url('admin/product') }}">Products</a>
-                <a class="nav-link" href="#">Categories</a>
+                <a class="nav-link" href="{{ url('admin/categories') }}">Categories</a>
                 <a class="nav-link" href="#">Users</a>
                 </nav>
                 </div>
             </div>
             <div class="col-md-10">
+            <!-- Product -->
             @yield('product')
             @yield('createProduct')
             @yield('editProduct')
             @yield('album-product')
+            <!-- Categories -->
+            @yield('category')
+            @yield('createCategory')
             </div>
         </div>
         </div>
