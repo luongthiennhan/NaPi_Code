@@ -20,7 +20,7 @@
     {{ session('success') }}
     </div> 
 @endif
-    <form action="{{ route('category.update', $categories->id) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('categories.update', $categories->id) }}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
     @csrf
     <div class="row">

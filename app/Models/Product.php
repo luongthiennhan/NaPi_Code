@@ -19,7 +19,10 @@ class Product extends Model
         'quantity',
         'image',
         'description',
+        'created_at',
+        'updated_at'
     ];
+    public $timestamps = false;
 
     public function category() {
         return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id' );

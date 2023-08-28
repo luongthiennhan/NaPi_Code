@@ -104,7 +104,7 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request) {
         $data = $request->validate([
-            'name' => 'max:25 | min:2',
+            'name' => 'max:25 | min:2 | unique:products,name,'.$request->input('product_id'),
             'description' => 'max:250',
             'image'  => 'mimes:jpeg,png,jpg,gif | max:2024',
         ]);
@@ -133,17 +133,16 @@ class ProductController extends Controller
             $array['image'] = $request->file('image')->getClientOriginalName();
             $request->file('image')->move('resources/img/',$request->file('image')->getClientOriginalName());
         }
-        
+        $array['updated_at'] =  Carbon::now('Asia/Ho_Chi_Minh');
         $saverPoduct->update($array);
 
             //save category product
             $id = Product_Categories::select('id')->where('product_id', $request->input('product_id'))->get();
                 Product_Categories::find($id)->first()->update([
                 'category_id' => $request->input('category'),
-                'product_id' => $request->input('product_id'),
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
             ]);
-              return redirect('/edit/'.$request->input('product_id'))->with('success', 'Product Update Successful!');
+              return redirect('/admin/product/edit/'.$request->input('product_id'))->with('success', 'Product Update Successful!');
     }
 
     public function destroy(Request $request, $id) {
@@ -181,7 +180,7 @@ class ProductController extends Controller
                 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
                ]);
         }
-        return redirect('/admin/album/'.$request->input('id-product'))->with('success', 'Successfully Added New Photo');
+        return redirect('/admin/product/album/'.$request->input('id-product'))->with('success', 'Successfully Added New Photo');
     }
 
     public function remoteImage(Request $request, $id, $productId, $image) {
@@ -190,6 +189,6 @@ class ProductController extends Controller
           File::delete($image_path);
         }
         ImageProduct::where('id', $id)->delete();
-        return redirect('/admin/album/'.$productId)->with('success', 'Delete Image successfully!');
+        return redirect('/admin/product/album/'.$productId)->with('success', 'Delete Image successfully!');
     }
 }

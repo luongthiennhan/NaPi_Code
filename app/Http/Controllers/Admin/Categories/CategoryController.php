@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $array = $request->all();
         $array['updated_at'] =  Carbon::now('Asia/Ho_Chi_Minh');
         $saverPoduct->update($array);
-        return redirect('/edit/category/'.$request->input('category_id'))->with('success', 'Category Update Successful!');
+        return redirect('admin/categories/edit/'.$request->input('category_id'))->with('success', 'Category Update Successful!');
     }
 
     public function destroy(Request $request, $id) {

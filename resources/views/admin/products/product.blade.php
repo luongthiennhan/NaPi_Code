@@ -51,8 +51,8 @@
       <td>{{ $row->description }}</td>
       <td>{{ $row->created_at }}</td>
       <td>{{ $row->updated_at }}</td>
-      <td><a class="edit-product" href="{{ route('edit.product',$row->id) }}"><i class='far fa-edit'></i></a></td>
-      <td><a class="remote-product" href="{{ route('remote.product',$row->id) }}"><i class='far'>&#xf2ed;</i></a></td>
+      <td><a class="edit-product" href="{{ route('product.edit',$row->id) }}"><i class='far fa-edit'></i></a></td>
+      <td><a class="remote-product" href="{{ route('product.remote',$row->id) }}"><i class='far'>&#xf2ed;</i></a></td>
     </tr>
     @endforeach
   </tbody>

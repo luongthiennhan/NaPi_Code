@@ -18,7 +18,7 @@
 @section('createCategory')
 <body>
   <h3>Create New Category</h3>
-    <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
     @csrf
     <div class="row">

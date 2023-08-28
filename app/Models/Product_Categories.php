@@ -12,5 +12,8 @@ class Product_Categories extends Model
     protected $fillable = [
         'category_id',
         'product_id',
+        'created_at',
+        'updated_at'
     ];
+    public $timestamps = false;
 }

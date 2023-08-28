@@ -22,7 +22,7 @@
     </div> 
 @endif
 
-<a href="{{ url('admin/category/new') }}"><button type="button" class="btn btn-primary">Add Category</button></a>
+<a href="{{ url('admin/categories/new') }}"><button type="button" class="btn btn-primary">Add Category</button></a>
 
 
   @if(isset($categories))
@@ -47,8 +47,8 @@
       <td>{{ $row->description }}</td>
       <td>{{ $row->created_at }}</td>
       <td>{{ $row->updated_at }}</td>
-      <td><a class="edit-product" href="{{ route('edit.category',$row->id) }}"><i class='far fa-edit'></i></a></td>
-      <td><a class="remote-product" href="{{ route('remote.category',$row->id) }}"><i class='far'>&#xf2ed;</i></a></td>
+      <td><a class="edit-product" href="{{ route('categories.edit',$row->id) }}"><i class='far fa-edit'></i></a></td>
+      <td><a class="remote-product" href="{{ route('categories.remote',$row->id) }}"><i class='far'>&#xf2ed;</i></a></td>
     </tr>
     @endforeach
   </tbody>
