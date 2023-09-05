@@ -37,7 +37,7 @@
         </div>
         <div class="col-6">
         <span class="text-gray-700">Description</span>
-        <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="Please Enter Description..." value="{{old('quantity')}}" required/>
+        <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="Please Enter Description..." value="{{old('description')}}" required/>
         </div>
     </div>
         <div class="form-group" >
