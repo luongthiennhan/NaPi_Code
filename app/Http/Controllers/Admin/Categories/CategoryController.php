@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -28,7 +29,7 @@ class CategoryController extends Controller
     }
 
     public function create(Request $request) {
-        $request['slug'] = str_slug($request->slug, '-');
+        $request['slug'] = Str::slug($request->slug, '-');
         $data = $request->validate([
             'name' => 'required | max:25 | min:2 |unique:categories,"name"',
             'slug'  => 'required|unique:categories,"slug"|max:191',
@@ -50,7 +51,7 @@ class CategoryController extends Controller
     }
 
     public function updateCategory(Request $request) {
-        $request['slug'] = str_slug($request->slug, '-');
+        $request['slug'] = Str::slug($request->slug, '-');
         $data = $request->validate([
             'name' => 'required | max:25 | min:2 | unique:categories,name,'.$request->input('category_id'),
             'slug'  => 'required | max:191 | unique:categories,slug,'.$request->input('category_id'),
